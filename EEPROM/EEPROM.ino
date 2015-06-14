@@ -27,7 +27,70 @@
 
 #include <EEPROM.h>     // We are going to read and write PICC's UIDs from/to EEPROM
 #include <SPI.h>        // RC522 Module uses SPI protocol
-#include <MFRC522.h>	// Library for Mifare RC522 Devices
+#include <MFRC522.h>
+#include <LiquidCrystal.h>
+/*
+  LiquidCrystal Library - display() and noDisplay()
+ 
+ Demonstrates the use a 16x2 LCD display.  The LiquidCrystal
+ library works with all LCD displays that are compatible with the
+ Hitachi HD44780 driver. There are many of them out there, and you
+ can usually tell them by the 16-pin interface.
+ 
+ This sketch prints "Hello World!" to the LCD and uses the
+ display() and noDisplay() functions to turn on and off
+ the display.
+ 
+ The circuit:
+ * LCD RS pin to digital pin 12
+ * LCD Enable pin to digital pin 11
+ * LCD D4 pin to digital pin 5
+ * LCD D5 pin to digital pin 4
+ * LCD D6 pin to digital pin 3
+ * LCD D7 pin to digital pin 2
+ * LCD R/W pin to ground
+ * 10K resistor:
+ * ends to +5V and ground
+ * wiper to LCD VO pin (pin 3)
+ 
+ Library originally added 18 Apr 2008
+ by David A. Mellis
+ library modified 5 Jul 2009
+ by Limor Fried (http://www.ladyada.net)
+ example added 9 Jul 2009
+ by Tom Igoe
+ modified 22 Nov 2010
+ by Tom Igoe
+
+ This example code is in the public domain.
+
+ http://arduino.cc/en/Tutorial/LiquidCrystalDisplay
+
+ */
+
+// include the library code:
+
+
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(1, 6, 5, 4, 3, 2);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+
+  // Print a message to the LCD.
+  
+}
+
+void loop() {
+  // Turn off the display:
+  lcd.noDisplay();
+  delay(500);
+   // Turn on the display:
+  lcd.display();
+  delay(500);
+}
+
+
 
 /*
 	Instead of a Relay maybe you want to use a servo
@@ -57,9 +120,7 @@
 #define LED_OFF LOW
 #endif
 
-#define redLed 7		// Set Led Pins
-#define greenLed 6
-#define blueLed 5
+
 
 #define relay 4			// Set Relay Pin
 #define wipeB 3			// Button pin for WipeMode
@@ -88,13 +149,16 @@ byte masterCard[4];		// Stores master card's ID read from EEPROM
 #define SS_PIN 10
 #define RST_PIN 9
 MFRC522 mfrc522(SS_PIN, RST_PIN);	// Create MFRC522 instance.
+  
+
 
 ///////////////////////////////////////// Setup ///////////////////////////////////
 void setup() {
+	
+	
+  lcd.begin(16, 2); //Activer l'écran LCD
   //Arduino Pin Configuration
-  pinMode(redLed, OUTPUT);
-  pinMode(greenLed, OUTPUT);
-  pinMode(blueLed, OUTPUT);
+  
   pinMode(wipeB, INPUT_PULLUP);		// Enable pin's pull up resistor
   pinMode(relay, OUTPUT);
   //Be careful how relay circuit behave on while resetting or power-cycling your Arduino
