@@ -122,8 +122,8 @@ void loop() {
 
 
 
-#define relay 4			// Set Relay Pin
-#define wipeB 3			// Button pin for WipeMode
+#define relay 7			// Set Relay Pin
+#define wipeB 8			// Button pin for WipeMode
 
 boolean match = false;          // initialize card match to false
 boolean programMode = false;	// initialize programming mode to false
@@ -180,35 +180,19 @@ void setup() {
 
   //Wipe Code if Button Pressed while setup run (powered on) it wipes EEPROM
   if (digitalRead(wipeB) == LOW) {	// when button pressed pin should get low, button connected to ground
-    digitalWrite(redLed, LED_ON);	// Red Led stays on to inform user we are going to wipe
-    Serial.println(F("Wipe Button Pressed"));
-    Serial.println(F("You have 5 seconds to Cancel"));
-    Serial.println(F("This will be remove all records and cannot be undone"));
-    delay(5000);                        // Give user enough time to cancel operation
-    if (digitalRead(wipeB) == LOW) {    // If button still be pressed, wipe EEPROM
-      Serial.println(F("Starting Wiping EEPROM"));
-      for (int x = 0; x < 1024; x = x + 1) {    //Loop end of EEPROM address
-        if (EEPROM.read(x) == 0) {              //If EEPROM address 0
-          // do nothing, already clear, go to the next address in order to save time and reduce writes to EEPROM
+    
+    
+    
         }
         else {
-          EEPROM.write(x, 0); 			// if not write 0 to clear, it takes 3.3mS
+         
         }
       }
       Serial.println(F("EEPROM Successfully Wiped"));
-      digitalWrite(redLed, LED_OFF); 	// visualize successful wipe
-      delay(200);
-      digitalWrite(redLed, LED_ON);
-      delay(200);
-      digitalWrite(redLed, LED_OFF);
-      delay(200);
-      digitalWrite(redLed, LED_ON);
-      delay(200);
-      digitalWrite(redLed, LED_OFF);
+      
     }
     else {
-      Serial.println(F("Wiping Cancelled"));
-      digitalWrite(redLed, LED_OFF);
+   
     }
   }
   // Check if master card defined, if not let user choose a master card
